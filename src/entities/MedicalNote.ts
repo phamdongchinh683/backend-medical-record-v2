@@ -1,0 +1,38 @@
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  Timestamp,
+} from "typeorm";
+import { User } from "./User";
+import { Visit } from "./Visit";
+
+@Entity("medical_notes")
+export class MedicalNote {
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
+
+  @Column()
+  nft_token: number;
+
+  @Column()
+  doctor_id: string;
+
+  @Column({ type: "text" })
+  note: string;
+
+  @CreateDateColumn()
+  create_at: Timestamp;
+
+  // Relations
+  @ManyToOne(() => Visit, (visit) => visit.medicalNotes)
+  @JoinColumn({ name: "nft_token", referencedColumnName: "nft_token" })
+  visit: Visit;
+
+  @ManyToOne(() => User)
+  @JoinColumn({ name: "doctor_id" })
+  doctor: User;
+}
