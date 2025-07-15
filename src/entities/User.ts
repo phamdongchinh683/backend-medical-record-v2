@@ -2,9 +2,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Index,
   OneToMany,
   PrimaryGeneratedColumn,
   Timestamp,
+  Unique,
   UpdateDateColumn,
 } from "typeorm";
 import { Gender, Role, UserStatus } from "../utils/enum";
@@ -14,14 +16,20 @@ import { Permission } from "./Permission";
 import { Visit } from "./Visit";
 
 @Entity("users")
+@Unique("UQ_USER_WALLET_USER", ["wallet_user"])
+@Unique("UQ_USER_CITIZEN_IDENTIFICATION", ["citizen_identification"])
+@Unique("UQ_USER_PHONE_NUMBER", ["phone_number"])
+@Index(["wallet_user", "citizen_identification", "phone_number"], {
+  unique: true,
+})
 export class User {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column({ unique: true, length: 43 })
+  @Column({ length: 43 })
   wallet_user: string;
 
-  @Column({ length: 50 })
+  @Column({ length: 30 })
   full_name: string;
 
   @Column({ type: "date" })
@@ -53,9 +61,6 @@ export class User {
 
   @Column({ length: 30 })
   state: string;
-
-  @Column({ length: 100, nullable: true })
-  email: string;
 
   @Column({
     type: "enum",

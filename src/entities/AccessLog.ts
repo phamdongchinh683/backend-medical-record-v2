@@ -7,11 +7,13 @@ import {
   PrimaryGeneratedColumn,
   Timestamp,
   UpdateDateColumn,
+  Index,
 } from "typeorm";
 import { ActionType } from "../utils/enum";
 import { User } from "./User";
 import { Visit } from "./Visit";
 
+@Index(["nft_token"])
 @Entity("access_logs")
 export class AccessLog {
   @PrimaryGeneratedColumn()

@@ -10,6 +10,7 @@ export function responseStatus(
   if (status == "success") {
     return res.status(statusCode).json({
       status,
+      message,
       data,
     });
   } else {
@@ -18,4 +19,12 @@ export function responseStatus(
       message,
     });
   }
+}
+
+export function asyncHandler(fn: Function) {
+  return function (req: any, res: any, next: any) {
+    Promise.resolve(fn(req, res, next)).catch((error) => {
+      responseStatus(res, "error", 500, error.message);
+    });
+  };
 }

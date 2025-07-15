@@ -7,10 +7,12 @@ import {
   PrimaryGeneratedColumn,
   Timestamp,
   UpdateDateColumn,
+  Index,
 } from "typeorm";
 import { DiagnosisType } from "../utils/enum";
 import { Visit } from "./Visit";
 
+@Index(["nft_token"])
 @Entity("diagnoses")
 export class Diagnosis {
   @PrimaryGeneratedColumn("uuid")

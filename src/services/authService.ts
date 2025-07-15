@@ -28,12 +28,12 @@ class AuthService {
       throw new Error("User not registered");
     }
 
-    const dataPayload: IPayload = {
+    const payload: IPayload = {
       address: address.toLowerCase(),
       role: Number(role),
     };
 
-    const token = generateToken(dataPayload);
+    const token = generateToken(payload);
     try {
       responseStatus(
         res,

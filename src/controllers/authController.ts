@@ -1,28 +1,22 @@
 import { Request, Response } from "express";
 import AuthService from "../services/authService";
-import { responseStatus } from "../utils/response";
-
+import userService from "../services/userService";
+import { asyncHandler } from "../utils/response";
 class AuthController {
-  async generateMessage(req: Request, res: Response) {
+  generateMessage = asyncHandler(async (req: Request, res: Response) => {
     const address = req.address;
-    try {
-      await AuthService.generateMessage(res, address);
-    } catch (error) {
-      responseStatus(res, "error", 500, error.message);
-      return;
-    }
-  }
+    await AuthService.generateMessage(res, address);
+  });
 
-  async verifyMessage(req: Request, res: Response) {
+  verifyMessage = asyncHandler(async (req: Request, res: Response) => {
     const address = req.address;
-    try {
-      await AuthService.generateTokenWithAddress(res, address);
-      return;
-    } catch (error) {
-      responseStatus(res, "error", 500, error.message);
-      return;
-    }
-  }
+    await AuthService.generateTokenWithAddress(res, address);
+  });
+
+  register = asyncHandler(async (req: Request, res: Response) => {
+    const data = req.body;
+    await userService.register(res, data);
+  });
 }
 
 export default new AuthController();

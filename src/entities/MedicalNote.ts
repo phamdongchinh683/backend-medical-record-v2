@@ -6,10 +6,12 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   Timestamp,
+  Index,
 } from "typeorm";
 import { User } from "./User";
 import { Visit } from "./Visit";
 
+@Index(["nft_token"])
 @Entity("medical_notes")
 export class MedicalNote {
   @PrimaryGeneratedColumn("uuid")

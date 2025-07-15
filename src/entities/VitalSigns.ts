@@ -7,9 +7,11 @@ import {
   PrimaryGeneratedColumn,
   Timestamp,
   UpdateDateColumn,
+  Index,
 } from "typeorm";
 import { Visit } from "./Visit";
 
+@Index(["nft_token"])
 @Entity("vital_signs")
 export class VitalSigns {
   @PrimaryGeneratedColumn("uuid")

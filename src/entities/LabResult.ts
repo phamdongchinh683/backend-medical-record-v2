@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Index,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
@@ -11,6 +12,7 @@ import {
 import { TestType } from "../utils/enum";
 import { Visit } from "./Visit";
 
+@Index(["nft_token"])
 @Entity("lab_results")
 export class LabResult {
   @PrimaryGeneratedColumn("uuid")

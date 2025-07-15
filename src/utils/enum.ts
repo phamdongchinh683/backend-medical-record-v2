@@ -5,9 +5,9 @@ export enum ActionType {
 }
 
 export enum AppointmentStatus {
-  PENDING = "Pending",
-  CONFIRMED = "Confirmed",
-  CANCELLED = "Cancelled",
+  PENDING = "pending",
+  CONFIRMED = "confirmed",
+  CANCELLED = "cancelled",
 }
 
 export enum DiagnosisType {
@@ -34,8 +34,8 @@ export enum TestType {
 }
 
 export enum PermissionStatus {
-  GRANTED = "Granted",
-  REVOKE = "Revoke",
+  GRANTED = "granted",
+  REVOKE = "revoke",
 }
 
 export enum ImageType {
@@ -53,12 +53,11 @@ export enum Gender {
 export enum Role {
   DOCTOR = "doctor",
   PATIENT = "patient",
-  ADMIN = "admin",
 }
 
 export enum UserStatus {
-  ACTIVE = "Active",
-  INACTIVE = "Inactive",
+  ACTIVE = "active",
+  INACTIVE = "inactive",
 }
 
 export enum VisitType {

@@ -7,10 +7,12 @@ import {
   PrimaryGeneratedColumn,
   Timestamp,
   UpdateDateColumn,
+  Index,
 } from "typeorm";
 import { ImageType } from "../utils/enum";
 import { Visit } from "./Visit";
 
+@Index(["nft_token"])
 @Entity("record_images")
 export class RecordImage {
   @PrimaryGeneratedColumn("uuid")

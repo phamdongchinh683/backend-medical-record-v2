@@ -13,13 +13,14 @@ app.use(express.json());
 app.use(morgan("combined"));
 app.use(helmet());
 app.use(express.urlencoded({ extended: true }));
-app.use(router);  
+app.use(router);
 
 async function startServer() {
   try {
     await initializeDatabase();
     if (nodeEnv === "development") {
       app.listen(port, () => {
+        console.log("swagger url", `http://localhost:${port}/docs`);
         console.log(
           `Server running at http://localhost:${port} in development mode`
         );
