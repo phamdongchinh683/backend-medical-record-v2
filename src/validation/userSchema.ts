@@ -4,7 +4,7 @@ export const userSchema = Joi.object({
   wallet_user: Joi.string()
     .length(42)
     .default("0xF151Dde9781aa2aAF9D7935dCa65afE")
-    .description("Wallet user address (43 characters, default provided)")
+    .description("Wallet user address (42 characters)")
     .required(),
 
   full_name: Joi.string()

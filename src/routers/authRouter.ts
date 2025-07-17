@@ -1,39 +1,22 @@
 import { Router } from "express";
 import authController from "../controllers/authController";
-import addressMiddleware from "../middleware/addressMiddleware";
-import signatureMiddleware from "../middleware/signatureMiddleware";
-import { validateUserMiddleware } from "../middleware/validateUserMiddleware";
-import { userSchema } from "../validation/userSchema";
-
+import authMiddleware from "../middleware/authMiddleware";
 const router = Router();
-
-router.get(
-  "/message/:address",
-  addressMiddleware,
-  authController.generateMessage
-);
-router.post("/verify", signatureMiddleware, authController.verifyMessage);
 
 /**
  * @swagger
- * /auth/register:
- *   post:
- *     summary: Register a new user
+ * /auth/profile:
+ *   get:
+ *     summary: Get user profile
  *     tags: [Auth]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/User'
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: User registered successfully
+ *         description: User profile retrieved successfully
+ *       401:
+ *         description: Unauthorized - Invalid or missing token
  */
-router.post(
-  "/register",
-  validateUserMiddleware(userSchema),
-  authController.register
-);
+router.get("/profile", authMiddleware, authController.profile);
 
 export default router;

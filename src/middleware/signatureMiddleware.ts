@@ -1,9 +1,14 @@
 import { ethers } from "ethers";
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Response } from "express";
+import { IUserRequest } from "../types/IUserRequest";
 import { responseStatus } from "../utils/response";
 import { validateAddress } from "../utils/validateAddress";
 
-function signatureMiddleware(req: Request, res: Response, next: NextFunction) {
+function signatureMiddleware(
+  req: IUserRequest,
+  res: Response,
+  next: NextFunction
+) {
   const { address, message, signature } = req.body;
 
   if (!address || !message || !signature) {

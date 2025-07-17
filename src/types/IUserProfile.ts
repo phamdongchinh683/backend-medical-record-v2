@@ -1,5 +1,4 @@
-export interface IUser {
-  wallet_user: string;
+export interface IUserProfile {
   full_name: string;
   date_of_birth: Date;
   gender: string;

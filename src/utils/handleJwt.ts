@@ -1,23 +1,34 @@
 import jwt from "jsonwebtoken";
 import { IPayload } from "../types/IPayload";
-import { expireTime, jwtSecret } from "./constants";
+import { jwtSecret } from "./constants";
 
-function generateToken(payload: IPayload): string {
+function generateToken(payload: any): string {
   if (!jwtSecret) {
-    throw new Error("JWT_SECRET environment variable is not set");
+    throw new Error("JWT_SECRET_KEY environment variable is not set");
   }
-  if (!expireTime) {
-    throw new Error("EXPIRE_TIME environment variable is not set");
-  }
-
-  return jwt.sign(payload, jwtSecret, { expiresIn: "1h" });
+  return jwt.sign(payload, jwtSecret, { expiresIn: "2h" });
 }
 
-function verifyToken(token: string): any {
+function verifyToken(token: string): IPayload | null {
   if (!jwtSecret) {
-    throw new Error("JWT_SECRET environment variable is not set");
+    throw new Error("JWT_SECRET_KEY environment variable is not set");
   }
-  return jwt.verify(token, jwtSecret);
+
+  try {
+    const decoded = jwt.verify(token, jwtSecret) as IPayload;
+    return decoded;
+  } catch (error) {
+    if (error instanceof jwt.JsonWebTokenError) {
+      console.error("JWT verification failed:", error.message);
+      return null;
+    }
+    if (error instanceof jwt.TokenExpiredError) {
+      console.error("JWT token expired");
+      return null;
+    }
+    console.error("JWT verification error:", error);
+    return null;
+  }
 }
 
 export { generateToken, verifyToken };

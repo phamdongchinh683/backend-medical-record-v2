@@ -29,7 +29,7 @@ class AuthService {
     }
 
     const payload: IPayload = {
-      address: address.toLowerCase(),
+      address: address,
       role: Number(role),
     };
 

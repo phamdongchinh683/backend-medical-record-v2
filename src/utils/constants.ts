@@ -14,7 +14,6 @@ const dbUsername = process.env.DB_USERNAME;
 const dbPassword = process.env.DB_PASSWORD;
 const dbName = process.env.DB_NAME;
 const corsOrigin = process.env.CORS_ORIGIN;
-const expireTime: number | string = process.env.EXPIRE_TIME;
 
 export {
   contractAddress,
@@ -24,7 +23,6 @@ export {
   dbPassword,
   dbPort,
   dbUsername,
-  expireTime,
   host,
   jwtSecret,
   nodeEnv,
