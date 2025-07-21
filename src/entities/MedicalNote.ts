@@ -2,11 +2,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Index,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   Timestamp,
-  Index,
+  UpdateDateColumn,
 } from "typeorm";
 import { User } from "./User";
 import { Visit } from "./Visit";
@@ -28,6 +29,9 @@ export class MedicalNote {
 
   @CreateDateColumn()
   create_at: Timestamp;
+
+  @UpdateDateColumn()
+  update_at: Timestamp;
 
   // Relations
   @ManyToOne(() => Visit, (visit) => visit.medicalNotes)

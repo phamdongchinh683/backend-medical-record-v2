@@ -2,8 +2,8 @@ import { Router } from "express";
 import authController from "../controllers/authController";
 import addressMiddleware from "../middleware/addressMiddleware";
 import signatureMiddleware from "../middleware/signatureMiddleware";
-import { validateUserMiddleware } from "../middleware/validateUserMiddleware";
 import { userSchema } from "../validation/userSchema";
+import { validateInputMiddleware } from "../middleware/validateInputMiddleware";
 const router = Router();
 
 /**
@@ -67,7 +67,7 @@ router.post("/verify", signatureMiddleware, authController.verifyMessage);
  */
 router.post(
   "/register",
-  validateUserMiddleware(userSchema),
+  validateInputMiddleware(userSchema),
   authController.register
 );
 

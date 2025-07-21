@@ -65,3 +65,8 @@ export enum VisitType {
   INPATIENT = "inpatient",
   EMERGENCY = "emergency",
 }
+
+export enum RoleNumber {
+  PATIENT = 1,
+  DOCTOR = 2,
+}

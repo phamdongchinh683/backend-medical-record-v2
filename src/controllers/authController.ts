@@ -27,6 +27,26 @@ class AuthController {
     }
     await userService.profile(res, user.address);
   });
+
+  updateProfile = asyncHandler(async (req: IUserRequest, res: Response) => {
+    const user = req.user;
+    const data = req.body;
+    if (!user) {
+      responseStatus(res, "error", 401, "Invalid or missing address in token");
+      return;
+    }
+    await userService.updateProfile(res, data, user.address);
+  });
+
+  updateStatus = asyncHandler(async (req: IUserRequest, res: Response) => {
+    const user = req.user;
+    const data = req.body;
+    if (!user) {
+      responseStatus(res, "error", 401, "Invalid or missing address in token");
+      return;
+    }
+    await userService.updateActiveStatus(res, data, user.address);
+  });
 }
 
 export default new AuthController();

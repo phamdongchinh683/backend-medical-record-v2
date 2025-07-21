@@ -3,6 +3,8 @@ import contract from "../config/contract";
 import { UserRepository } from "../repositories/UserRepository";
 import { IUser } from "../types/IUser";
 import { IUserProfile } from "../types/IUserProfile";
+import { IUserUpdate } from "../types/IUserUpdate";
+import { UserStatus } from "../utils/enum";
 import { responseStatus } from "../utils/response";
 
 class UserService {
@@ -26,13 +28,31 @@ class UserService {
     responseStatus(res, "error", 400, "User not found");
   }
 
+  async updateProfile(
+    res: Response,
+    data: IUserUpdate,
+    wallet: string
+  ): Promise<void> {
+    const user = await this.userRepository.updateUserByWallet(wallet, data);
+    if (user) {
+      responseStatus(res, "success", 200, "User updated successfully");
+    }
+  }
+
   async findByAddress(address: string): Promise<BigInt> {
     const user = await contract.roles(address);
     return user;
   }
 
-  async getAllUsers(): Promise<any[]> {
-    return await this.userRepository.findAll();
+  async updateActiveStatus(
+    res: Response,
+    data: { status: UserStatus },
+    wallet: string
+  ): Promise<void> {
+    const user = await this.userRepository.updateStatus(wallet, data);
+    if (user) {
+      responseStatus(res, "success", 200, "User updated successfully");
+    }
   }
 }
 

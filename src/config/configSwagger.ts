@@ -1,10 +1,12 @@
-import joiToSwagger from "joi-to-swagger";
 import swaggerJSDoc from "swagger-jsdoc";
-import { messageVerifySchema } from "../validation/messageVerifySchema";
-import { userSchema } from "../validation/userSchema";
-const { swagger: userSwaggerSchema } = joiToSwagger(userSchema);
-const { swagger: messageVerifySwaggerSchema } =
-  joiToSwagger(messageVerifySchema);
+import {
+  infoUpdateSwaggerSchema,
+  messageVerifySwaggerSchema,
+  statusSwaggerSchema,
+  userSwaggerSchema,
+  visitSwaggerSchema,
+  visitUpdateSwaggerSchema,
+} from "../utils/swaggerSchema";
 
 const options = {
   definition: {
@@ -26,6 +28,10 @@ const options = {
       schemas: {
         User: userSwaggerSchema,
         MessageVerify: messageVerifySwaggerSchema,
+        InfoUpdate: infoUpdateSwaggerSchema,
+        Status: statusSwaggerSchema,
+        Visit: visitSwaggerSchema,
+        VisitUpdate: visitUpdateSwaggerSchema,
       },
     },
   },

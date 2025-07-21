@@ -1,8 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import Joi from "joi";
 import { responseStatus } from "../utils/response";
 
-export function validateUserMiddleware(schema: Joi.ObjectSchema) {
+export function validateInputMiddleware(schema: any) {
   return (req: Request, res: Response, next: NextFunction) => {
     const { error } = schema.validate(req.body, { abortEarly: false });
     if (error) {

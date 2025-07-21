@@ -22,8 +22,8 @@ export function responseStatus(
 }
 
 export function asyncHandler(fn: Function) {
-  return function (req: any, res: any, next: any) {
-    Promise.resolve(fn(req, res, next)).catch((error) => {
+  return function (req: any, res: any) {
+    Promise.resolve(fn(req, res)).catch((error) => {
       responseStatus(res, "error", 500, error.message);
     });
   };
