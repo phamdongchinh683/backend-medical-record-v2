@@ -4,6 +4,7 @@ import addressMiddleware from "../middleware/addressMiddleware";
 import signatureMiddleware from "../middleware/signatureMiddleware";
 import { userSchema } from "../validation/userSchema";
 import { validateInputMiddleware } from "../middleware/validateInputMiddleware";
+import { validateParameter } from "../middleware/validateParameter";
 const router = Router();
 
 /**
@@ -25,6 +26,7 @@ const router = Router();
  */
 router.get(
   "/message/:address",
+  validateParameter("address", "params"),
   addressMiddleware,
   authController.generateMessage
 );

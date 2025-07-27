@@ -4,15 +4,21 @@ import { asyncHandler } from "../utils/response";
 
 class VisitController {
   addVisit = asyncHandler(async (req: Request, res: Response) => {
-    const { record } = req.body;
-    await visitService.createVisit(record);
+    await visitService.createVisit(req.body, res);
   });
 
   updateVisit = asyncHandler(async (req: Request, res: Response) => {
-    const { id } = req.params;
-    const { visit } = req.body;
-    await visitService.updateVisit(id, visit);
+    await visitService.updateVisit(req.params.id, req.body, res);
   });
+
+  deleteVisit = asyncHandler(async (req: Request, res: Response) => {
+    await visitService.deleteVisit(req.params.id, res);
+  });
+
+  findVisitByNftToken = asyncHandler(async (req: Request, res: Response) => {
+    await visitService.findVisitByNftToken(Number(req.params.nftToken), res);
+  });
+
 }
 
 export default new VisitController();

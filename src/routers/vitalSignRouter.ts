@@ -1,11 +1,12 @@
 import { Router } from "express";
-import visitController from "../controllers/visitController";
-import authMiddleware from "../middleware/authMiddleware";
-import { roleMiddleware } from "../middleware/roleMiddlewares";
+import vitalSignController from "../controllers/vitalSignController";
 import { validateInputMiddleware } from "../middleware/validateInputMiddleware";
 import { validateParameter } from "../middleware/validateParameter";
+import { vitalSignSchema } from "../validation/vitalSignSchema";
+import { vitalSignUpdateSchema } from "../validation/vitalSignUpdateSchema";
+import authMiddleware from "../middleware/authMiddleware";
+import { roleMiddleware } from "../middleware/roleMiddlewares";
 import { RoleNumber } from "../utils/enum";
-import { visitSchema } from "../validation/visitSchema";
 
 const router = Router();
 
@@ -13,10 +14,10 @@ router.use(authMiddleware, roleMiddleware(RoleNumber.DOCTOR));
 
 /**
  * @swagger
- * /visit/:
+ * /vital-sign/:
  *   post:
- *     summary: Create visit
- *     tags: [Visit - Doctor]
+ *     summary: Add vital sign
+ *     tags: [Vital Sign - Doctor]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -24,25 +25,26 @@ router.use(authMiddleware, roleMiddleware(RoleNumber.DOCTOR));
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Visit'
+ *             $ref: '#/components/schemas/VitalSign'
  *     responses:
  *       200:
- *         description: Visit created successfully
+ *         description: Vital sign added successfully
  *       401:
  *         description: Unauthorized - Invalid or missing token
  */
+
 router.post(
   "/",
-  validateInputMiddleware(visitSchema),
-  visitController.addVisit
+  validateInputMiddleware(vitalSignSchema),
+  vitalSignController.addVitalSign
 );
 
 /**
  * @swagger
- * /visit/{id}:
+ * /vital-sign/{id}:
  *   put:
- *     summary: Update visit
- *     tags: [Visit - Doctor]
+ *     summary: Update vital sign
+ *     tags: [Vital Sign - Doctor]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -56,27 +58,26 @@ router.post(
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Visit'
+ *             $ref: '#/components/schemas/VitalSignUpdate'
  *     responses:
  *       200:
- *         description: Visit updated successfully
+ *         description: Vital sign updated successfully
  *       401:
  *         description: Unauthorized - Invalid or missing token
  */
 router.put(
   "/:id",
   validateParameter("id", "params"),
-  validateInputMiddleware(visitSchema),
-  visitController.updateVisit
+  validateInputMiddleware(vitalSignUpdateSchema),
+  vitalSignController.updateVitalSign
 );
 
 /**
  * @swagger
- * /visit/{id}:
+ * /vital-sign/{id}:
  *   delete:
- *     summary: Delete visit
- *     tags: [Visit - Doctor]
- *     description: Delete visit by id
+ *     summary: Delete vital sign
+ *     tags: [Vital Sign - Doctor]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -94,15 +95,15 @@ router.put(
 router.delete(
   "/:id",
   validateParameter("id", "params"),
-  visitController.deleteVisit
+  vitalSignController.deleteVitalSign
 );
 
 /**
  * @swagger
- * /visit/{nftToken}:
+ * /vital-sign/{nftToken}:
  *   get:
- *     summary: Get visit by nft token
- *     tags: [Visit - Doctor]
+ *     summary: Get vital sign by nft token
+ *     tags: [Vital Sign - Doctor]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -110,17 +111,17 @@ router.delete(
  *         in: path
  *         required: true
  *         schema:
- *           type: number
+ *           type: string
  *     responses:
  *       200:
- *         description: Visit fetched successfully
+ *         description: Vital sign fetched successfully
  *       401:
  *         description: Unauthorized - Invalid or missing token
  */
 router.get(
   "/:nftToken",
   validateParameter("nftToken", "params"),
-  visitController.findVisitByNftToken
+  vitalSignController.findVitalSignByNft
 );
 
 export default router;

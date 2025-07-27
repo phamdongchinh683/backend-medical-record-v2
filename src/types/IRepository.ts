@@ -1,7 +1,9 @@
+import { DeleteResult, UpdateResult } from "typeorm";
+
 export interface IRepository<T> {
   create(data: any): Promise<T>;
-  findAll(): Promise<T[]>;
-  update(id: string, data: any): Promise<T | null>;
+  tableCount(): Promise<number>;
+  update(id: string, data: any): Promise<UpdateResult | null>;
   findById(id: string): Promise<T | null>;
-  delete(id: string): Promise<void>;
+  delete(id: string): Promise<DeleteResult>;
 }

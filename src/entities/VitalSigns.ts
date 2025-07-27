@@ -2,17 +2,21 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Index,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   Timestamp,
+  Unique,
   UpdateDateColumn,
-  Index,
 } from "typeorm";
 import { Visit } from "./Visit";
 
-@Index(["nft_token"])
 @Entity("vital_signs")
+@Unique("UQ_VITAL_SIGN_NFT_TOKEN", ["nft_token"])
+@Index(["nft_token"], {
+  unique: true,
+})
 export class VitalSigns {
   @PrimaryGeneratedColumn("uuid")
   id: string;

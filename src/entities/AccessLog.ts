@@ -2,12 +2,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Index,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   Timestamp,
   UpdateDateColumn,
-  Index,
 } from "typeorm";
 import { ActionType } from "../utils/enum";
 import { User } from "./User";

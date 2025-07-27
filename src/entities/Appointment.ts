@@ -2,16 +2,24 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Index,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   Timestamp,
+  Unique,
   UpdateDateColumn,
 } from "typeorm";
 import { AppointmentStatus } from "../utils/enum";
 import { User } from "./User";
 
 @Entity("appointments")
+@Unique("UQ_APPOINTMENT_DATETIME_DOCTOR_PATIENT", [
+  "date_time",
+  "wallet_user_doctor",
+  "wallet_user_patient",
+])
+@Index(["date_time", "wallet_user_doctor", "wallet_user_patient"])
 export class Appointment {
   @PrimaryGeneratedColumn("uuid")
   id: string;
@@ -23,7 +31,7 @@ export class Appointment {
   wallet_user_doctor: string;
 
   @Column({ type: "timestamp" })
-  date_time: Date;
+  date_time: Timestamp;
 
   @Column({
     type: "enum",

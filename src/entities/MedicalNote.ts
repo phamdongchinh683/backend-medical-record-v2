@@ -7,12 +7,14 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   Timestamp,
+  Unique,
   UpdateDateColumn,
 } from "typeorm";
 import { User } from "./User";
 import { Visit } from "./Visit";
 
 @Index(["nft_token"])
+@Unique("UQ_MEDICAL_NOTE_NFT_TOKEN", ["nft_token"])
 @Entity("medical_notes")
 export class MedicalNote {
   @PrimaryGeneratedColumn("uuid")

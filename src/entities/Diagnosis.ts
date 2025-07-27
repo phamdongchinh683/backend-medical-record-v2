@@ -2,17 +2,19 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Index,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   Timestamp,
+  Unique,
   UpdateDateColumn,
-  Index,
 } from "typeorm";
 import { DiagnosisType } from "../utils/enum";
 import { Visit } from "./Visit";
 
-@Index(["nft_token"])
+@Unique("UQ_DIAGNOSIS_NFT_TOKEN", ["nft_token"])
+@Index(["nft_token", "type"])
 @Entity("diagnoses")
 export class Diagnosis {
   @PrimaryGeneratedColumn("uuid")

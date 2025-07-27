@@ -5,7 +5,8 @@ import {
   statusSwaggerSchema,
   userSwaggerSchema,
   visitSwaggerSchema,
-  visitUpdateSwaggerSchema,
+  vitalSignSwaggerSchema,
+  vitalSignUpdateSwaggerSchema,
 } from "../utils/swaggerSchema";
 
 const options = {
@@ -17,6 +18,24 @@ const options = {
       description: "API documentation for the Medical Record backend",
     },
     servers: [{ url: "http://localhost:3000/api/v1" }],
+    tags: [
+      {
+        name: "Public",
+        description: "Public endpoints",
+      },
+      {
+        name: "Auth",
+        description: "Authentication and user profile endpoints.",
+      },
+      {
+        name: "Visit - Doctor",
+        description: "Doctor endpoints for managing visits.",
+      },
+      {
+        name: "Vital Sign - Doctor",
+        description: "Doctor endpoints for managing vital signs.",
+      },
+    ],
     components: {
       securitySchemes: {
         bearerAuth: {
@@ -31,7 +50,8 @@ const options = {
         InfoUpdate: infoUpdateSwaggerSchema,
         Status: statusSwaggerSchema,
         Visit: visitSwaggerSchema,
-        VisitUpdate: visitUpdateSwaggerSchema,
+        VitalSign: vitalSignSwaggerSchema,
+        VitalSignUpdate: vitalSignUpdateSwaggerSchema,
       },
     },
   },

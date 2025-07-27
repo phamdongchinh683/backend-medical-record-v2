@@ -1,8 +1,8 @@
 import { Request, Response, Router } from "express";
 import swaggerUi from "swagger-ui-express";
 import routers from "../config/configRouters";
-import { responseStatus } from "../utils/response";
 import swaggerSpec from "../config/configSwagger";
+import { responseStatus } from "../utils/response";
 
 const router = Router();
 

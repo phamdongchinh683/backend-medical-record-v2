@@ -1,4 +1,3 @@
-import dotenv from "dotenv";
 import { DataSource } from "typeorm";
 import {
   dbHost,
@@ -7,7 +6,6 @@ import {
   dbPort,
   dbUsername,
 } from "../utils/constants";
-dotenv.config();
 
 export const AppDataSource = new DataSource({
   type: "postgres",
