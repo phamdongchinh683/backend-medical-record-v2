@@ -1,11 +1,15 @@
 import { Router } from "express";
-import visitController from "../controllers/visitController";
+import appointmentController from "../controllers/appointmentController";
 import authMiddleware from "../middleware/authMiddleware";
 import { roleMiddleware } from "../middleware/roleMiddlewares";
 import { validateInputMiddleware } from "../middleware/validateInputMiddleware";
+import { validatePaginationQuery } from "../middleware/validatePaginationQuery";
 import { validateParameter } from "../middleware/validateParameter";
 import { RoleNumber } from "../utils/enum";
-import { visitSchema } from "../validation/visitSchema";
+import {
+  appointmentSchema,
+  appointmentUpdateSchema,
+} from "../validation/appointmentSchema";
 
 const router = Router();
 
@@ -13,10 +17,10 @@ router.use(authMiddleware);
 
 /**
  * @swagger
- * /visit/:
+ * /appointment/:
  *   post:
- *     summary: Create visit
- *     tags: [Visit - Doctor]
+ *     summary: Create appointment
+ *     tags: [Appointment - Doctor]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -24,26 +28,26 @@ router.use(authMiddleware);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Visit'
+ *             $ref: '#/components/schemas/Appointment'
  *     responses:
  *       200:
- *         description: Visit created successfully
+ *         description: Appointment created successfully
  *       401:
  *         description: Unauthorized - Invalid or missing token
  */
 router.post(
   "/",
   roleMiddleware(RoleNumber.DOCTOR),
-  validateInputMiddleware(visitSchema),
-  visitController.addVisit
+  validateInputMiddleware(appointmentSchema),
+  appointmentController.addAppointment
 );
 
 /**
  * @swagger
- * /visit/{id}:
+ * /appointment/{id}:
  *   patch:
- *     summary: Update visit
- *     tags: [Visit - Doctor]
+ *     summary: Update appointment
+ *     tags: [Appointment - Doctor]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -57,28 +61,28 @@ router.post(
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Visit'
+ *             $ref: '#/components/schemas/AppointmentUpdate'
  *     responses:
  *       200:
- *         description: Visit updated successfully
+ *         description: Appointment updated successfully
  *       401:
  *         description: Unauthorized - Invalid or missing token
  */
+
 router.patch(
   "/:id",
   roleMiddleware(RoleNumber.DOCTOR),
-  validateParameter("id", "params"),
-  validateInputMiddleware(visitSchema),
-  visitController.updateVisit
+  validateInputMiddleware(appointmentUpdateSchema),
+  appointmentController.updateAppointment
 );
 
 /**
  * @swagger
- * /visit/{id}:
+ * /appointment/{id}:
  *   delete:
- *     summary: Delete visit
- *     tags: [Visit - Doctor]
- *     description: Delete visit by id
+ *     summary: Delete appointment
+ *     tags: [Appointment - Doctor]
+ *     description: Delete appointment by id
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -89,41 +93,45 @@ router.patch(
  *           type: string
  *     responses:
  *       200:
- *         description: Visit deleted successfully
+ *         description: Appointment deleted successfully
  *       401:
  *         description: Unauthorized - Invalid or missing token
  */
+
 router.delete(
   "/:id",
   roleMiddleware(RoleNumber.DOCTOR),
   validateParameter("id", "params"),
-  visitController.deleteVisit
+  appointmentController.deleteAppointment
 );
 
 /**
  * @swagger
- * /visit/{nftToken}:
+ * /appointment/:
  *   get:
- *     summary: Get visit by nft token
+ *     summary: Get appointments
  *     tags: [Doctor - Patient]
+ *     description: Get appointments
  *     security:
  *       - bearerAuth: []
  *     parameters:
- *       - name: nftToken
- *         in: path
+ *       - name: page
+ *         in: query
+ *         required: true
+ *         schema:
+ *           type: number
+ *       - name: limit
+ *         in: query
  *         required: true
  *         schema:
  *           type: number
  *     responses:
  *       200:
- *         description: Visit fetched successfully
+ *         description: Appointments fetched successfully
  *       401:
  *         description: Unauthorized - Invalid or missing token
  */
-router.get(
-  "/:nftToken",
-  validateParameter("nftToken", "params"),
-  visitController.findVisitByNftToken
-);
+
+router.get("/", validatePaginationQuery, appointmentController.getAppointments);
 
 export default router;

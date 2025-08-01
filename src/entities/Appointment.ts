@@ -18,6 +18,7 @@ import { User } from "./User";
   "date_time",
   "wallet_user_doctor",
   "wallet_user_patient",
+  "status",
 ])
 @Index(["date_time", "wallet_user_doctor", "wallet_user_patient"])
 export class Appointment {

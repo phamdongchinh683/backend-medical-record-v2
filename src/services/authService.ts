@@ -23,7 +23,6 @@ class AuthService {
 
   async generateTokenWithAddress(res: Response, address: string) {
     const role = await contract.roles(address);
-
     if (Number(role) === 0) {
       throw new Error("User not registered");
     }

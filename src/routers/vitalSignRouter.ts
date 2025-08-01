@@ -1,16 +1,16 @@
 import { Router } from "express";
 import vitalSignController from "../controllers/vitalSignController";
-import { validateInputMiddleware } from "../middleware/validateInputMiddleware";
-import { validateParameter } from "../middleware/validateParameter";
-import { vitalSignSchema } from "../validation/vitalSignSchema";
-import { vitalSignUpdateSchema } from "../validation/vitalSignUpdateSchema";
 import authMiddleware from "../middleware/authMiddleware";
 import { roleMiddleware } from "../middleware/roleMiddlewares";
+import { validateInputMiddleware } from "../middleware/validateInputMiddleware";
+import { validateParameter } from "../middleware/validateParameter";
 import { RoleNumber } from "../utils/enum";
+import { vitalSignSchema } from "../validation/vitalSignSchema";
+import { vitalSignUpdateSchema } from "../validation/vitalSignUpdateSchema";
 
 const router = Router();
 
-router.use(authMiddleware, roleMiddleware(RoleNumber.DOCTOR));
+router.use(authMiddleware);
 
 /**
  * @swagger
@@ -35,6 +35,7 @@ router.use(authMiddleware, roleMiddleware(RoleNumber.DOCTOR));
 
 router.post(
   "/",
+  roleMiddleware(RoleNumber.DOCTOR),
   validateInputMiddleware(vitalSignSchema),
   vitalSignController.addVitalSign
 );
@@ -67,6 +68,7 @@ router.post(
  */
 router.put(
   "/:id",
+  roleMiddleware(RoleNumber.DOCTOR),
   validateParameter("id", "params"),
   validateInputMiddleware(vitalSignUpdateSchema),
   vitalSignController.updateVitalSign
@@ -94,6 +96,7 @@ router.put(
  */
 router.delete(
   "/:id",
+  roleMiddleware(RoleNumber.DOCTOR),
   validateParameter("id", "params"),
   vitalSignController.deleteVitalSign
 );
@@ -103,7 +106,7 @@ router.delete(
  * /vital-sign/{nftToken}:
  *   get:
  *     summary: Get vital sign by nft token
- *     tags: [Vital Sign - Doctor]
+ *     tags: [Doctor - Patient]
  *     security:
  *       - bearerAuth: []
  *     parameters:

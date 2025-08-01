@@ -10,7 +10,7 @@ router.use(routers);
 router.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 router.use((req: Request, res: Response) => {
-  responseStatus(res, "error", 404, "Not found");
+  responseStatus(res, "error", 404, "URL not found");
 });
 
 export default router;

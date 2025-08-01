@@ -1,13 +1,15 @@
-import { AppointmentStatus } from "../utils/enum";
+import { Timestamp } from "typeorm";
 
 export interface IAppointment {
-  wallet_user_patient: string;
-  wallet_user_doctor: string;
-  date_time: Date;
-  status?: AppointmentStatus;
-}
-
-export interface IAppointmentUpdate {
-  date_time?: Date;
-  status?: AppointmentStatus;
+  id: string;
+  date_time: Timestamp;
+  status: string;
+  patient: {
+    id: string;
+    full_name: string;
+  };
+  doctor: {
+    id: string;
+    full_name: string;
+  };
 }

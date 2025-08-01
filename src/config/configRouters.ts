@@ -1,9 +1,11 @@
 import { Router } from "express";
+import accessLogRouter from "../routers/accessLogRouter";
+import appointmentRouter from "../routers/appointmentRouter";
 import authRouter from "../routers/authRouter";
+import permissionRouter from "../routers/PermissionRouter";
 import publicRouter from "../routers/publicRouter";
 import visitRouter from "../routers/visitRouter";
 import vitalSignRouter from "../routers/vitalSignRouter";
-
 const router = Router();
 const API_PREFIX = "/api/v1";
 
@@ -23,6 +25,18 @@ const routers = [
   {
     path: `${API_PREFIX}/vital-sign`,
     routes: vitalSignRouter,
+  },
+  {
+    path: `${API_PREFIX}/access-log`,
+    routes: accessLogRouter,
+  },
+  {
+    path: `${API_PREFIX}/appointment`,
+    routes: appointmentRouter,
+  },
+  {
+    path: `${API_PREFIX}/permission`,
+    routes: permissionRouter,
   },
 ];
 

@@ -16,7 +16,7 @@ import { Visit } from "./Visit";
 @Index(["nft_token"])
 @Entity("access_logs")
 export class AccessLog {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column()

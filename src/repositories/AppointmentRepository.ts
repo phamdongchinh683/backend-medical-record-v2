@@ -1,4 +1,5 @@
 import { Appointment } from "../entities";
+import { IPaginationData } from "../types/IPaginationData";
 import { BaseRepository } from "./baseRepository";
 
 export class AppointmentRepository extends BaseRepository<Appointment> {
@@ -6,74 +7,45 @@ export class AppointmentRepository extends BaseRepository<Appointment> {
     super(Appointment);
   }
 
-  async findExistingAppointment(
-    dateTime: Date,
-    walletUserDoctor: string,
-    walletUserPatient: string
-  ): Promise<Appointment | null> {
-    return await this.repo.findOne({
+  async findAppointmentsByWallet(
+    wallet: string,
+    limit: number,
+    page: number
+  ): Promise<IPaginationData> {
+    let [result, total] = await this.repo.findAndCount({
+      skip: (page - 1) * limit,
+      take: limit,
+      order: {
+        date_time: "ASC",
+      },
       where: {
-        date_time: dateTime,
-        wallet_user_doctor: walletUserDoctor,
-        wallet_user_patient: walletUserPatient,
+        wallet_user_patient: wallet,
+      },
+      select: {
+        id: true,
+        date_time: true,
+        status: true,
+        patient: {
+          id: true,
+          full_name: true,
+        },
+        doctor: {
+          id: true,
+          full_name: true,
+        },
+      },
+      relations: {
+        patient: true,
+        doctor: true,
       },
     });
-  }
 
-  async findAppointmentsByDoctor(
-    walletUserDoctor: string,
-    dateTime?: Date
-  ): Promise<Appointment[]> {
-    const whereCondition: any = {
-      wallet_user_doctor: walletUserDoctor,
+    return {
+      data: result.length > 0 ? result : [],
+      total: result.length,
+      page,
+      limit,
+      totalItems: total,
     };
-
-    if (dateTime) {
-      whereCondition.date_time = dateTime;
-    }
-
-    return await this.repo.find({
-      where: whereCondition,
-      order: {
-        date_time: "ASC",
-      },
-    });
-  }
-
-  async findAppointmentsByPatient(
-    walletUserPatient: string,
-    dateTime?: Date
-  ): Promise<Appointment[]> {
-    const whereCondition: any = {
-      wallet_user_patient: walletUserPatient,
-    };
-
-    if (dateTime) {
-      whereCondition.date_time = dateTime;
-    }
-
-    return await this.repo.find({
-      where: whereCondition,
-      order: {
-        date_time: "ASC",
-      },
-    });
-  }
-
-  async createWithValidation(appointmentData: any): Promise<Appointment> {
-    // Check for existing appointment with same date, doctor, and patient
-    const existingAppointment = await this.findExistingAppointment(
-      appointmentData.date_time,
-      appointmentData.wallet_user_doctor,
-      appointmentData.wallet_user_patient
-    );
-
-    if (existingAppointment) {
-      throw new Error(
-        "An appointment already exists for this date, doctor, and patient combination"
-      );
-    }
-
-    return await this.create(appointmentData);
   }
 }
