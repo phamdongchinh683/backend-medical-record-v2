@@ -10,11 +10,24 @@ import {
   updateDiagnosisSchema,
 } from "../validation/diagnosisSchema";
 import { infoUpdateSchema } from "../validation/infoUpdateSchema";
+import {
+  labResultSchema,
+  labResultUpdateSchema,
+} from "../validation/labResultSchema";
+import { medicalNoteSchema } from "../validation/medicalNoteSchema";
 import { messageVerifySchema } from "../validation/messageVerifySchema";
 import {
   permissionSchema,
   updatePermissionSchema,
 } from "../validation/permissionSchema";
+import {
+  prescriptionSchema,
+  prescriptionUpdateSchema,
+} from "../validation/prescriptionSchema";
+import {
+  recordImageSchema,
+  recordImageUpdateSchema,
+} from "../validation/recordImageSchema";
 import { statusSchema } from "../validation/statusSchema";
 import { userSchema } from "../validation/userSchema";
 import { visitSchema } from "../validation/visitSchema";
@@ -40,11 +53,24 @@ const { swagger: permissionSwaggerSchema } = joiToSwagger(permissionSchema);
 const { swagger: permissionUpdateSwaggerSchema } = joiToSwagger(
   updatePermissionSchema
 );
-
 const { swagger: diagnosisSwaggerSchema } = joiToSwagger(diagnosisSchema);
 const { swagger: updateDiagnosisSwaggerSchema } = joiToSwagger(
   updateDiagnosisSchema
 );
+const { swagger: prescriptionSwaggerSchema } = joiToSwagger(prescriptionSchema);
+const { swagger: updatePrescriptionSwaggerSchema } = joiToSwagger(
+  prescriptionUpdateSchema
+);
+const { swagger: recordImageSwaggerSchema } = joiToSwagger(recordImageSchema);
+const { swagger: updateRecordImageSwaggerSchema } = joiToSwagger(
+  recordImageUpdateSchema
+);
+const { swagger: labResultSwaggerSchema } = joiToSwagger(labResultSchema);
+const { swagger: updateLabResultSwaggerSchema } = joiToSwagger(
+  labResultUpdateSchema
+);
+
+const { swagger: medicalNoteSwaggerSchema } = joiToSwagger(medicalNoteSchema);
 
 export {
   accessLogSwaggerSchema,
@@ -52,11 +78,18 @@ export {
   appointmentUpdateSwaggerSchema,
   diagnosisSwaggerSchema,
   infoUpdateSwaggerSchema,
+  labResultSwaggerSchema,
+  medicalNoteSwaggerSchema,
   messageVerifySwaggerSchema,
   permissionSwaggerSchema,
   permissionUpdateSwaggerSchema,
+  prescriptionSwaggerSchema,
+  recordImageSwaggerSchema,
   statusSwaggerSchema,
   updateDiagnosisSwaggerSchema,
+  updateLabResultSwaggerSchema,
+  updatePrescriptionSwaggerSchema,
+  updateRecordImageSwaggerSchema,
   userSwaggerSchema,
   visitSwaggerSchema,
   vitalSignSwaggerSchema,

@@ -5,6 +5,7 @@ import authRouter from "../routers/authRouter";
 import diagnosisRouter from "../routers/diagnosisRouter";
 import permissionRouter from "../routers/PermissionRouter";
 import publicRouter from "../routers/publicRouter";
+import recordImageRouter from "../routers/recordImageRouter";
 import visitRouter from "../routers/visitRouter";
 import vitalSignRouter from "../routers/vitalSignRouter";
 const router = Router();
@@ -40,6 +41,10 @@ const routers = [
     routes: permissionRouter,
   },
   { path: `${API_PREFIX}/diagnosis`, routes: diagnosisRouter },
+  {
+    path: `${API_PREFIX}/record-image`,
+    routes: recordImageRouter,
+  },
 ];
 
 routers.forEach((route) => {
