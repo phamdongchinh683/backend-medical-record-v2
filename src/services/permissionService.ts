@@ -45,7 +45,7 @@ class PermissionService {
         limit > 100 ? 100 : limit
       );
       if (result.total === 0) {
-        responseStatus(res, "error", 404, "Permission not found");
+        responseStatus(res, "error", 404, "Current page is empty");
         return;
       }
       responseStatus(

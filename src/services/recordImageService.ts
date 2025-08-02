@@ -64,7 +64,7 @@ class RecordImageService {
         limit > 100 ? 100 : limit
       );
       if (result.total == 0) {
-        responseStatus(res, "error", 400, "Current not have any record image");
+        responseStatus(res, "error", 400, "Current page is empty");
         return;
       }
       responseStatus(

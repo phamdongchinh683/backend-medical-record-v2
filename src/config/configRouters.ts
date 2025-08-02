@@ -6,8 +6,10 @@ import diagnosisRouter from "../routers/diagnosisRouter";
 import permissionRouter from "../routers/PermissionRouter";
 import publicRouter from "../routers/publicRouter";
 import recordImageRouter from "../routers/recordImageRouter";
+import prescriptionRouter from "../routers/prescriptionRouter";
 import visitRouter from "../routers/visitRouter";
 import vitalSignRouter from "../routers/vitalSignRouter";
+
 const router = Router();
 const API_PREFIX = "/api/v1";
 
@@ -44,6 +46,10 @@ const routers = [
   {
     path: `${API_PREFIX}/record-image`,
     routes: recordImageRouter,
+  },
+  {
+    path: `${API_PREFIX}/prescription`,
+    routes: prescriptionRouter,
   },
 ];
 

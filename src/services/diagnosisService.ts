@@ -54,6 +54,10 @@ class DiagnosisService {
         page,
         limit
       );
+      if (diagnosis.total === 0) {
+        responseStatus(res, "error", 400, "Current page is empty");
+        return;
+      }
       responseStatus(res, "success", 200, "Diagnosis", diagnosis);
     } catch (error) {
       throw new Error(error.message);
