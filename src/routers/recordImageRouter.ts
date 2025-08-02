@@ -130,7 +130,7 @@ router.get(
 
 /**
  * @swagger
- * /record-image/:
+ * /record-image:
  *   post:
  *     summary: Create record image
  *     tags: [Record Image]

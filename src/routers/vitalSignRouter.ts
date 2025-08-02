@@ -14,7 +14,7 @@ router.use(authMiddleware);
 
 /**
  * @swagger
- * /vital-sign/:
+ * /vital-sign:
  *   post:
  *     summary: Add vital sign
  *     tags: [Vital Sign - Doctor]

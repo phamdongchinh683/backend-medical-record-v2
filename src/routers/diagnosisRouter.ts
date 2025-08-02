@@ -189,7 +189,7 @@ router.get(
 
 /**
  * @swagger
- * /diagnosis/:
+ * /diagnosis:
  *   post:
  *     summary: Create Diagnosis
  *     tags: [Diagnosis - Doctor]
@@ -369,7 +369,7 @@ router.put(
 
 /**
  * @swagger
- * /diagnosis/:
+ * /diagnosis:
  *   get:
  *     summary: Get diagnosis by type
  *     tags: [Diagnosis - Doctor]

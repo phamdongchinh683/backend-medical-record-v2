@@ -3,10 +3,11 @@ import accessLogRouter from "../routers/accessLogRouter";
 import appointmentRouter from "../routers/appointmentRouter";
 import authRouter from "../routers/authRouter";
 import diagnosisRouter from "../routers/diagnosisRouter";
+import medicalNoteRouter from "../routers/medicalNoteRouter";
 import permissionRouter from "../routers/PermissionRouter";
+import prescriptionRouter from "../routers/prescriptionRouter";
 import publicRouter from "../routers/publicRouter";
 import recordImageRouter from "../routers/recordImageRouter";
-import prescriptionRouter from "../routers/prescriptionRouter";
 import visitRouter from "../routers/visitRouter";
 import vitalSignRouter from "../routers/vitalSignRouter";
 
@@ -50,6 +51,10 @@ const routers = [
   {
     path: `${API_PREFIX}/prescription`,
     routes: prescriptionRouter,
+  },
+  {
+    path: `${API_PREFIX}/medical-note`,
+    routes: medicalNoteRouter,
   },
 ];
 

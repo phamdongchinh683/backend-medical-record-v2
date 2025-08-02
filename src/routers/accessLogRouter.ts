@@ -11,7 +11,7 @@ const router = Router();
 router.use(authMiddleware);
 /**
  * @swagger
- * /access-log/:
+ * /access-log:
  *   post:
  *     summary: Create access log
  *     tags: [Doctor - Patient]

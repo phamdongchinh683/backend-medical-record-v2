@@ -14,7 +14,7 @@ router.use(authMiddleware);
 
 /**
  * @swagger
- * /permission/:
+ * /permission:
  *   get:
  *     summary: Get permission
  *     tags: [Doctor - Patient]
@@ -121,7 +121,7 @@ router.get(
 );
 /**
  * @swagger
- * /permission/:
+ * /permission:
  *   post:
  *     summary: Add permission
  *     tags: [Permission - Patient]

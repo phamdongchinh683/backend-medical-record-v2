@@ -11,3 +11,7 @@ export const medicalNoteSchema = joi.object({
     .default("487958a6-d3a5-4919-8d53-4066be178910")
     .required(),
 });
+
+export const medicalNoteUpdateSchema = joi.object({
+  note: joi.string().default("content note here").required(),
+});

@@ -17,7 +17,7 @@ router.use(authMiddleware);
 
 /**
  * @swagger
- * /appointment/:
+ * /appointment:
  *   post:
  *     summary: Create appointment
  *     tags: [Appointment - Doctor]
@@ -315,7 +315,7 @@ router.delete(
 
 /**
  * @swagger
- * /appointment/:
+ * /appointment:
  *   get:
  *     summary: Get appointments
  *     tags: [Doctor - Patient]

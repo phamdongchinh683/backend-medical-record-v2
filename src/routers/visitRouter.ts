@@ -13,7 +13,7 @@ router.use(authMiddleware);
 
 /**
  * @swagger
- * /visit/:
+ * /visit:
  *   post:
  *     summary: Create visit
  *     tags: [Visit - Doctor]

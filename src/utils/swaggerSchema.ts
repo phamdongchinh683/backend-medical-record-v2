@@ -14,7 +14,10 @@ import {
   labResultSchema,
   labResultUpdateSchema,
 } from "../validation/labResultSchema";
-import { medicalNoteSchema } from "../validation/medicalNoteSchema";
+import {
+  medicalNoteSchema,
+  medicalNoteUpdateSchema,
+} from "../validation/medicalNoteSchema";
 import { messageVerifySchema } from "../validation/messageVerifySchema";
 import {
   permissionSchema,
@@ -71,6 +74,9 @@ const { swagger: updateLabResultSwaggerSchema } = joiToSwagger(
 );
 
 const { swagger: medicalNoteSwaggerSchema } = joiToSwagger(medicalNoteSchema);
+const { swagger: medicalNoteUpdateSwaggerSchema } = joiToSwagger(
+  medicalNoteUpdateSchema
+);
 
 export {
   accessLogSwaggerSchema,
@@ -80,6 +86,7 @@ export {
   infoUpdateSwaggerSchema,
   labResultSwaggerSchema,
   medicalNoteSwaggerSchema,
+  medicalNoteUpdateSwaggerSchema,
   messageVerifySwaggerSchema,
   permissionSwaggerSchema,
   permissionUpdateSwaggerSchema,

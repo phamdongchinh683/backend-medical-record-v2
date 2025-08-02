@@ -1,6 +1,6 @@
 import { Response } from "express";
 import { VitalSignRepository } from "../repositories/VitalSignRepository";
-import { IVitalSign } from "../types/IVitalsign";
+import { IVitalSign } from "../types/IVitalSign";
 import { IVitalSignUpdate } from "../types/IVitalSignUpdate";
 import { responseStatus } from "../utils/response";
 

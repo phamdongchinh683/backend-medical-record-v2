@@ -16,7 +16,7 @@ const router = Router();
 router.use(authMiddleware);
 /**
  * @swagger
- * /prescription/:
+ * /prescription:
  *   post:
  *     summary: Create Prescription
  *     tags: [Prescription - Doctor]
