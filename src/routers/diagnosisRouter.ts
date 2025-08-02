@@ -1,5 +1,5 @@
 import { Router } from "express";
-import appointmentController from "../controllers/appointmentController";
+import diagnosisController from "../controllers/diagnosisController";
 import authMiddleware from "../middleware/authMiddleware";
 import { roleMiddleware } from "../middleware/roleMiddlewares";
 import { validateInputMiddleware } from "../middleware/validateInputMiddleware";
@@ -7,31 +7,30 @@ import { validatePaginationQuery } from "../middleware/validatePaginationQuery";
 import { validateParameter } from "../middleware/validateParameter";
 import { RoleNumber } from "../utils/enum";
 import {
-  appointmentSchema,
-  appointmentUpdateSchema,
-} from "../validation/appointmentSchema";
+  diagnosisSchema,
+  updateDiagnosisSchema,
+} from "../validation/diagnosisSchema";
 
 const router = Router();
 
-router.use(authMiddleware);
-
+router.use(authMiddleware, roleMiddleware(RoleNumber.DOCTOR));
 /**
  * @swagger
- * /appointment/:
- *   post:
- *     summary: Create appointment
- *     tags: [Appointment - Doctor]
+ * /diagnosis/{id}:
+ *   get:
+ *     summary: find diagnosis by id
+ *     tags: [Diagnosis - Doctor]
  *     security:
  *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Appointment'
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
  *     responses:
- *       201:
- *         description: Appointment created successfully
+ *       200:
+ *         description: Diagnosis fetched successfully
  *         content:
  *           application/json:
  *             schema:
@@ -42,9 +41,182 @@ router.use(authMiddleware);
  *                   example: true
  *                 message:
  *                   type: string
- *                   example: "Appointment created successfully"
+ *                   example: "Diagnosis retrieved successfully"
  *                 data:
- *                   $ref: '#/components/schemas/Appointment'
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Diagnosis'
+ *       400:
+ *         description: Bad request - Invalid parameters
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Invalid parameters"
+ *       401:
+ *         description: Unauthorized - Invalid or missing token
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Unauthorized"
+ *       404:
+ *         description: Not found - No diagnosis found for the given NFT token
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "No diagnosis found"
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Internal server error"
+ */
+router.get(
+  "/:id",
+  validateParameter("id", "params"),
+  diagnosisController.getDiagnosis
+);
+
+/**
+ * @swagger
+ * /diagnosis/count/{type}:
+ *   get:
+ *     summary: get diagnosis count
+ *     tags: [Diagnosis - Doctor]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: type
+ *         in: path
+ *         required: true
+ *         description: primary, secondary, differential, provisional
+ *     responses:
+ *       200:
+ *         description: Diagnosis count retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Diagnosis count retrieved successfully"
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     count:
+ *                       type: number
+ *                       example: 15
+ *                     type:
+ *                       type: string
+ *                       example: "primary"
+ *       400:
+ *         description: Bad request - Invalid type parameter
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Invalid diagnosis type"
+ *       401:
+ *         description: Unauthorized - Invalid or missing token
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Unauthorized"
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Internal server error"
+ */
+router.get(
+  "/count/:type",
+  validateParameter("type", "params"),
+  diagnosisController.diagnosisCount
+);
+
+/**
+ * @swagger
+ * /diagnosis/:
+ *   post:
+ *     summary: Create Diagnosis
+ *     tags: [Diagnosis - Doctor]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Diagnosis'
+ *     responses:
+ *       201:
+ *         description: Diagnosis created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Diagnosis created successfully"
+ *                 data:
+ *                   $ref: '#/components/schemas/Diagnosis'
  *       400:
  *         description: Bad request - Invalid input data
  *         content:
@@ -75,19 +247,6 @@ router.use(authMiddleware);
  *                 message:
  *                   type: string
  *                   example: "Unauthorized"
- *       403:
- *         description: Forbidden - Insufficient permissions
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
- *                 message:
- *                   type: string
- *                   example: "Insufficient permissions"
  *       500:
  *         description: Internal server error
  *         content:
@@ -104,17 +263,16 @@ router.use(authMiddleware);
  */
 router.post(
   "/",
-  roleMiddleware(RoleNumber.DOCTOR),
-  validateInputMiddleware(appointmentSchema),
-  appointmentController.addAppointment
+  validateInputMiddleware(diagnosisSchema),
+  diagnosisController.addDiagnosis
 );
 
 /**
  * @swagger
- * /appointment/{id}:
- *   patch:
- *     summary: Update appointment
- *     tags: [Appointment - Doctor]
+ * /diagnosis/{id}:
+ *   put:
+ *     summary: Update diagnosis
+ *     tags: [Diagnosis - Doctor]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -128,10 +286,10 @@ router.post(
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/AppointmentUpdate'
+ *             $ref: '#/components/schemas/DiagnosisUpdate'
  *     responses:
  *       200:
- *         description: Appointment updated successfully
+ *         description: Diagnosis updated successfully
  *         content:
  *           application/json:
  *             schema:
@@ -142,9 +300,9 @@ router.post(
  *                   example: true
  *                 message:
  *                   type: string
- *                   example: "Appointment updated successfully"
+ *                   example: "Diagnosis updated successfully"
  *                 data:
- *                   $ref: '#/components/schemas/Appointment'
+ *                   $ref: '#/components/schemas/Diagnosis'
  *       400:
  *         description: Bad request - Invalid input data
  *         content:
@@ -175,21 +333,8 @@ router.post(
  *                 message:
  *                   type: string
  *                   example: "Unauthorized"
- *       403:
- *         description: Forbidden - Insufficient permissions
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
- *                 message:
- *                   type: string
- *                   example: "Insufficient permissions"
  *       404:
- *         description: Not found - Appointment not found
+ *         description: Not found - Diagnosis not found
  *         content:
  *           application/json:
  *             schema:
@@ -200,7 +345,7 @@ router.post(
  *                   example: false
  *                 message:
  *                   type: string
- *                   example: "Appointment not found"
+ *                   example: "Diagnosis not found"
  *       500:
  *         description: Internal server error
  *         content:
@@ -215,114 +360,29 @@ router.post(
  *                   type: string
  *                   example: "Internal server error"
  */
-
-router.patch(
+router.put(
   "/:id",
-  roleMiddleware(RoleNumber.DOCTOR),
-  validateInputMiddleware(appointmentUpdateSchema),
-  appointmentController.updateAppointment
+  validateParameter("id", "params"),
+  validateInputMiddleware(updateDiagnosisSchema),
+  diagnosisController.updateDiagnosis
 );
 
 /**
  * @swagger
- * /appointment/{id}:
- *   delete:
- *     summary: Delete appointment
- *     tags: [Appointment - Doctor]
- *     description: Delete appointment by id
+ * /diagnosis/:
+ *   get:
+ *     summary: Get diagnosis by type
+ *     tags: [Diagnosis - Doctor]
  *     security:
  *       - bearerAuth: []
  *     parameters:
- *       - name: id
- *         in: path
+ *       - name: type
+ *         in: query
  *         required: true
  *         schema:
  *           type: string
- *     responses:
- *       200:
- *         description: Appointment deleted successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
- *                 message:
- *                   type: string
- *                   example: "Appointment deleted successfully"
- *       401:
- *         description: Unauthorized - Invalid or missing token
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
- *                 message:
- *                   type: string
- *                   example: "Unauthorized"
- *       403:
- *         description: Forbidden - Insufficient permissions
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
- *                 message:
- *                   type: string
- *                   example: "Insufficient permissions"
- *       404:
- *         description: Not found - Appointment not found
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
- *                 message:
- *                   type: string
- *                   example: "Appointment not found"
- *       500:
- *         description: Internal server error
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
- *                 message:
- *                   type: string
- *                   example: "Internal server error"
- */
-
-router.delete(
-  "/:id",
-  roleMiddleware(RoleNumber.DOCTOR),
-  validateParameter("id", "params"),
-  appointmentController.deleteAppointment
-);
-
-/**
- * @swagger
- * /appointment/:
- *   get:
- *     summary: Get appointments
- *     tags: [Doctor - Patient]
- *     description: Get appointments
- *     security:
- *       - bearerAuth: []
- *     parameters:
+ *           default: primary
+ *         description: primary, secondary, differential, provisional
  *       - name: page
  *         in: query
  *         required: true
@@ -337,14 +397,14 @@ router.delete(
  *         required: true
  *         schema:
  *           type: number
- *           default: 10
+ *           default: 1
  *           minimum: 1
  *           maximum: 100
  *         example: 10
  *         description: Number of items per page (max 100)
  *     responses:
  *       200:
- *         description: Appointments retrieved successfully
+ *         description: Diagnosis by type retrieved successfully
  *         content:
  *           application/json:
  *             schema:
@@ -355,11 +415,11 @@ router.delete(
  *                   example: true
  *                 message:
  *                   type: string
- *                   example: "Appointments retrieved successfully"
+ *                   example: "Diagnosis by type retrieved successfully"
  *                 data:
  *                   type: array
  *                   items:
- *                     $ref: '#/components/schemas/Appointment'
+ *                     $ref: '#/components/schemas/Diagnosis'
  *                 pagination:
  *                   type: object
  *                   properties:
@@ -401,6 +461,19 @@ router.delete(
  *                 message:
  *                   type: string
  *                   example: "Unauthorized"
+ *       404:
+ *         description: Not found - No diagnosis found for the given type
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "No diagnosis found for this type"
  *       500:
  *         description: Internal server error
  *         content:
@@ -415,7 +488,11 @@ router.delete(
  *                   type: string
  *                   example: "Internal server error"
  */
-
-router.get("/", validatePaginationQuery, appointmentController.getAppointments);
+router.get(
+  "/",
+  validateParameter("type", "query"),
+  validatePaginationQuery,
+  diagnosisController.getDiagnosisByType
+);
 
 export default router;

@@ -28,7 +28,7 @@ class AccessLogService {
       const result = await this.accessLogRepository.findAccessLogByNftToken(
         nftToken,
         page,
-        limit
+        limit > 100 ? 100 : limit
       );
       if (!result) {
         responseStatus(res, "error", 404, "Access log not found");

@@ -11,6 +11,7 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 import { DiagnosisType } from "../utils/enum";
+import { User } from "./User";
 import { Visit } from "./Visit";
 
 @Unique("UQ_DIAGNOSIS_NFT_TOKEN", ["nft_token"])
@@ -25,6 +26,9 @@ export class Diagnosis {
 
   @Column({ length: 100 })
   diagnosis_name: string;
+
+  @Column({ length: 43 })
+  wallet_patient: string;
 
   @Column({
     type: "enum",
@@ -42,4 +46,8 @@ export class Diagnosis {
   @ManyToOne(() => Visit, (visit) => visit.diagnoses)
   @JoinColumn({ name: "nft_token", referencedColumnName: "nft_token" })
   visit: Visit;
+
+  @ManyToOne(() => User, (user) => user.patientDiagnoses)
+  @JoinColumn({ name: "wallet_patient", referencedColumnName: "wallet_user" })
+  patient: User;
 }

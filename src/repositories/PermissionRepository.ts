@@ -41,8 +41,8 @@ export class PermissionRepository extends BaseRepository<Permission> {
     });
 
     return {
-      data: result.length > 0 ? result : [],
-      total,
+      data: result,
+      total: result.length,
       page,
       limit,
       totalItems: total,

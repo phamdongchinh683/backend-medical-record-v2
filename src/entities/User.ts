@@ -12,6 +12,7 @@ import {
 import { Gender, Role, UserStatus } from "../utils/enum";
 import { AccessLog } from "./AccessLog";
 import { Appointment } from "./Appointment";
+import { Diagnosis } from "./Diagnosis";
 import { Permission } from "./Permission";
 import { Visit } from "./Visit";
 
@@ -96,4 +97,7 @@ export class User {
 
   @OneToMany(() => Permission, (permission) => permission.doctor)
   doctorPermissions: Permission[];
+
+  @OneToMany(() => Diagnosis, (diagnosis) => diagnosis.patient)
+  patientDiagnoses: Diagnosis[];
 }

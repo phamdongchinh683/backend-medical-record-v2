@@ -5,6 +5,10 @@ import {
   appointmentSchema,
   appointmentUpdateSchema,
 } from "../validation/appointmentSchema";
+import {
+  diagnosisSchema,
+  updateDiagnosisSchema,
+} from "../validation/diagnosisSchema";
 import { infoUpdateSchema } from "../validation/infoUpdateSchema";
 import { messageVerifySchema } from "../validation/messageVerifySchema";
 import {
@@ -36,15 +40,23 @@ const { swagger: permissionSwaggerSchema } = joiToSwagger(permissionSchema);
 const { swagger: permissionUpdateSwaggerSchema } = joiToSwagger(
   updatePermissionSchema
 );
+
+const { swagger: diagnosisSwaggerSchema } = joiToSwagger(diagnosisSchema);
+const { swagger: updateDiagnosisSwaggerSchema } = joiToSwagger(
+  updateDiagnosisSchema
+);
+
 export {
   accessLogSwaggerSchema,
   appointmentSwaggerSchema,
   appointmentUpdateSwaggerSchema,
+  diagnosisSwaggerSchema,
   infoUpdateSwaggerSchema,
   messageVerifySwaggerSchema,
   permissionSwaggerSchema,
   permissionUpdateSwaggerSchema,
   statusSwaggerSchema,
+  updateDiagnosisSwaggerSchema,
   userSwaggerSchema,
   visitSwaggerSchema,
   vitalSignSwaggerSchema,

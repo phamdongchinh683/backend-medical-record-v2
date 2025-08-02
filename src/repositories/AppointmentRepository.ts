@@ -41,7 +41,7 @@ export class AppointmentRepository extends BaseRepository<Appointment> {
     });
 
     return {
-      data: result.length > 0 ? result : [],
+      data: result,
       total: result.length,
       page,
       limit,

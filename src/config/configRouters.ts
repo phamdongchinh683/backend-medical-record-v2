@@ -2,6 +2,7 @@ import { Router } from "express";
 import accessLogRouter from "../routers/accessLogRouter";
 import appointmentRouter from "../routers/appointmentRouter";
 import authRouter from "../routers/authRouter";
+import diagnosisRouter from "../routers/diagnosisRouter";
 import permissionRouter from "../routers/PermissionRouter";
 import publicRouter from "../routers/publicRouter";
 import visitRouter from "../routers/visitRouter";
@@ -38,6 +39,7 @@ const routers = [
     path: `${API_PREFIX}/permission`,
     routes: permissionRouter,
   },
+  { path: `${API_PREFIX}/diagnosis`, routes: diagnosisRouter },
 ];
 
 routers.forEach((route) => {

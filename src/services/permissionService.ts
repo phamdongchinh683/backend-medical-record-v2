@@ -42,7 +42,7 @@ class PermissionService {
       const result = await this.permissionRepository.getPermissionByWallet(
         wallet,
         page,
-        limit
+        limit > 100 ? 100 : limit
       );
       if (result.total === 0) {
         responseStatus(res, "error", 404, "Permission not found");

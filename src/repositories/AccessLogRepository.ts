@@ -37,7 +37,7 @@ export class AccessLogRepository extends BaseRepository<AccessLog> {
     });
 
     return {
-      data: result.length > 0 ? result : [],
+      data: result,
       total: result.length,
       page,
       limit,

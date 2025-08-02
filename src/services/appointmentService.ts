@@ -58,7 +58,7 @@ class AppointmentService {
       const result = await this.appointmentRepository.findAppointmentsByWallet(
         wallet,
         page,
-        limit
+        limit > 100 ? 100 : limit
       );
       if (result.total === 0) {
         responseStatus(res, "error", 404, "Current appointment not found");
