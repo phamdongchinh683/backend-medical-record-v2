@@ -22,7 +22,7 @@ router.use(authMiddleware);
  *     summary: Create appointment
  *     tags: [Appointment - Doctor]
  *     security:
- *       - bearerAuth: []
+ *       - cookieAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -38,8 +38,8 @@ router.use(authMiddleware);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: true
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Appointment created successfully"
@@ -53,8 +53,8 @@ router.use(authMiddleware);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Validation error"
@@ -70,8 +70,8 @@ router.use(authMiddleware);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Unauthorized"
@@ -83,8 +83,8 @@ router.use(authMiddleware);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Insufficient permissions"
@@ -96,8 +96,8 @@ router.use(authMiddleware);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Internal server error"
@@ -116,7 +116,7 @@ router.post(
  *     summary: Update appointment
  *     tags: [Appointment - Doctor]
  *     security:
- *       - bearerAuth: []
+ *       - cookieAuth: []
  *     parameters:
  *       - name: id
  *         in: path
@@ -138,8 +138,8 @@ router.post(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: true
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Appointment updated successfully"
@@ -153,8 +153,8 @@ router.post(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Validation error"
@@ -170,8 +170,8 @@ router.post(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Unauthorized"
@@ -183,8 +183,8 @@ router.post(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Insufficient permissions"
@@ -196,8 +196,8 @@ router.post(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Appointment not found"
@@ -209,8 +209,8 @@ router.post(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Internal server error"
@@ -231,7 +231,7 @@ router.patch(
  *     tags: [Appointment - Doctor]
  *     description: Delete appointment by id
  *     security:
- *       - bearerAuth: []
+ *       - cookieAuth: []
  *     parameters:
  *       - name: id
  *         in: path
@@ -247,8 +247,8 @@ router.patch(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: true
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Appointment deleted successfully"
@@ -260,8 +260,8 @@ router.patch(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Unauthorized"
@@ -273,8 +273,8 @@ router.patch(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Insufficient permissions"
@@ -286,8 +286,8 @@ router.patch(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Appointment not found"
@@ -299,8 +299,8 @@ router.patch(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Internal server error"
@@ -321,7 +321,7 @@ router.delete(
  *     tags: [Doctor - Patient]
  *     description: Get appointments
  *     security:
- *       - bearerAuth: []
+ *       - cookieAuth: []
  *     parameters:
  *       - name: page
  *         in: query
@@ -351,8 +351,8 @@ router.delete(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: true
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Appointments retrieved successfully"
@@ -383,8 +383,8 @@ router.delete(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Invalid parameters"
@@ -396,8 +396,8 @@ router.delete(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Unauthorized"
@@ -409,8 +409,8 @@ router.delete(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Internal server error"

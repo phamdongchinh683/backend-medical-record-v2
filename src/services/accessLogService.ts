@@ -45,6 +45,34 @@ class AccessLogService {
       throw new Error(error.message);
     }
   }
+
+  async findByWallet(
+    wallet: string,
+    page: number,
+    limit: number,
+    res: Response
+  ) {
+    try {
+      const result = await this.accessLogRepository.findAccessLogByWallet(
+        wallet,
+        page,
+        limit > 100 ? 100 : limit
+      );
+      if (result.total === 0) {
+        responseStatus(res, "error", 404, "Current you has no access log");
+        return;
+      }
+      responseStatus(
+        res,
+        "success",
+        200,
+        "Access log fetched successfully",
+        result
+      );
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
 }
 
 export default new AccessLogService(new AccessLogRepository());

@@ -22,7 +22,7 @@ router.use(authMiddleware);
  *     summary: Get lab result by nft
  *     tags: [Doctor - Patient]
  *     security:
- *       - bearerAuth: []
+ *       - cookieAuth: []
  *     parameters:
  *       - name: nftToken
  *         in: path
@@ -60,8 +60,8 @@ router.use(authMiddleware);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: true
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Diagnosis by type retrieved successfully"
@@ -92,8 +92,8 @@ router.use(authMiddleware);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Invalid parameters"
@@ -105,8 +105,8 @@ router.use(authMiddleware);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Unauthorized"
@@ -118,8 +118,8 @@ router.use(authMiddleware);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "No diagnosis found for this type"
@@ -131,8 +131,8 @@ router.use(authMiddleware);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Internal server error"
@@ -151,7 +151,7 @@ router.get(
  *     summary: Create Lab Result
  *     tags: [Lab Result - Doctor]
  *     security:
- *       - bearerAuth: []
+ *       - cookieAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -167,8 +167,8 @@ router.get(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: true
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Lab Result created successfully"
@@ -182,8 +182,8 @@ router.get(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Validation error"
@@ -199,8 +199,8 @@ router.get(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Unauthorized"
@@ -212,8 +212,8 @@ router.get(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Insufficient permissions"
@@ -225,8 +225,8 @@ router.get(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Internal server error"
@@ -245,7 +245,7 @@ router.post(
  *     summary: Update Lab Result
  *     tags: [Lab Result - Doctor]
  *     security:
- *       - bearerAuth: []
+ *       - cookieAuth: []
  *     parameters:
  *       - name: id
  *         in: path
@@ -267,8 +267,8 @@ router.post(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: true
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Lab Result updated successfully"
@@ -280,8 +280,8 @@ router.post(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Validation error"
@@ -297,8 +297,8 @@ router.post(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Unauthorized"
@@ -310,8 +310,8 @@ router.post(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Insufficient permissions"
@@ -323,8 +323,8 @@ router.post(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "medical-note not found"
@@ -336,8 +336,8 @@ router.post(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Internal server error"
@@ -358,7 +358,7 @@ router.put(
  *     tags: [Lab Result - Doctor]
  *     description: Delete lab result by id
  *     security:
- *       - bearerAuth: []
+ *       - cookieAuth: []
  *     parameters:
  *       - name: id
  *         in: path
@@ -374,8 +374,8 @@ router.put(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: true
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Lab Result deleted successfully"
@@ -387,8 +387,8 @@ router.put(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Unauthorized"
@@ -400,8 +400,8 @@ router.put(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Insufficient permissions"
@@ -413,8 +413,8 @@ router.put(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Appointment not found"
@@ -426,8 +426,8 @@ router.put(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Internal server error"

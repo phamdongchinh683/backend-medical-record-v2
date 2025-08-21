@@ -27,6 +27,9 @@ export class PermissionRepository extends BaseRepository<Permission> {
         doctor: {
           id: true,
           full_name: true,
+          gender: true,
+          citizen_identification: true,
+          phone_number: true,
         },
         patient: {
           id: true,

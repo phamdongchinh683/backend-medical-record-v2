@@ -20,7 +20,7 @@ router.use(authMiddleware);
  *     tags: [Doctor - Patient]
  *     description: Get permission
  *     security:
- *       - bearerAuth: []
+ *       - cookieAuth: []
  *     parameters:
  *       - name: page
  *         in: query
@@ -50,8 +50,8 @@ router.use(authMiddleware);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: true
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Permissions retrieved successfully"
@@ -82,8 +82,8 @@ router.use(authMiddleware);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Invalid parameters"
@@ -95,8 +95,8 @@ router.use(authMiddleware);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Unauthorized"
@@ -108,8 +108,8 @@ router.use(authMiddleware);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Internal server error"
@@ -126,7 +126,7 @@ router.get(
  *     summary: Add permission
  *     tags: [Permission - Patient]
  *     security:
- *       - bearerAuth: []
+ *       - cookieAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -142,8 +142,8 @@ router.get(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: true
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Permission created successfully"
@@ -157,8 +157,8 @@ router.get(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Validation error"
@@ -174,8 +174,8 @@ router.get(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Unauthorized"
@@ -187,8 +187,8 @@ router.get(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Insufficient permissions"
@@ -200,8 +200,8 @@ router.get(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Internal server error"
@@ -220,7 +220,7 @@ router.post(
  *     summary: Update permission
  *     tags: [Permission - Patient]
  *     security:
- *       - bearerAuth: []
+ *       - cookieAuth: []
  *     parameters:
  *       - name: id
  *         in: path
@@ -242,8 +242,8 @@ router.post(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: true
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Permission updated successfully"
@@ -257,8 +257,8 @@ router.post(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Validation error"
@@ -274,8 +274,8 @@ router.post(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Unauthorized"
@@ -287,8 +287,8 @@ router.post(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Insufficient permissions"
@@ -300,8 +300,8 @@ router.post(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Permission not found"
@@ -313,8 +313,8 @@ router.post(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Internal server error"

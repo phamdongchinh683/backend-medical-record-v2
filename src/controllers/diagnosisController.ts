@@ -20,7 +20,6 @@ class DiagnosisController {
   });
 
   getDiagnosisByType = asyncHandler(async (req: Request, res: Response) => {
-   console.log(req.query.type);
     await diagnosisService.getByType(
       req.query.type as string,
       parseInt(req.query.page as string) || 1,

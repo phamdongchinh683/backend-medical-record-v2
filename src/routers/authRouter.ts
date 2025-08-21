@@ -2,6 +2,7 @@ import { Router } from "express";
 import authController from "../controllers/authController";
 import authMiddleware from "../middleware/authMiddleware";
 import { validateInputMiddleware } from "../middleware/validateInputMiddleware";
+import { validateParameter } from "../middleware/validateParameter";
 import { infoUpdateSchema } from "../validation/infoUpdateSchema";
 import { statusSchema } from "../validation/statusSchema";
 const router = Router();
@@ -15,7 +16,7 @@ router.use(authMiddleware);
  *     summary: Get user profile
  *     tags: [Auth]
  *     security:
- *       - bearerAuth: []
+ *       - cookieAuth: []
  *     responses:
  *       200:
  *         description: User profile retrieved successfully
@@ -25,8 +26,8 @@ router.use(authMiddleware);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: true
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Profile retrieved successfully"
@@ -40,8 +41,8 @@ router.use(authMiddleware);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Unauthorized"
@@ -53,8 +54,8 @@ router.use(authMiddleware);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "User profile not found"
@@ -66,8 +67,8 @@ router.use(authMiddleware);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Internal server error"
@@ -80,7 +81,7 @@ router.get("/profile", authController.profile);
  *     summary: Update user profile
  *     tags: [Auth]
  *     security:
- *       - bearerAuth: []
+ *       - cookieAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -96,8 +97,8 @@ router.get("/profile", authController.profile);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: true
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Profile updated successfully"
@@ -111,8 +112,8 @@ router.get("/profile", authController.profile);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Validation error"
@@ -128,8 +129,8 @@ router.get("/profile", authController.profile);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Unauthorized"
@@ -141,8 +142,8 @@ router.get("/profile", authController.profile);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "User not found"
@@ -154,8 +155,8 @@ router.get("/profile", authController.profile);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Internal server error"
@@ -172,7 +173,7 @@ router.put(
  *     summary: Update user status
  *     tags: [Auth]
  *     security:
- *       - bearerAuth: []
+ *       - cookieAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -188,8 +189,8 @@ router.put(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: true
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Status updated successfully"
@@ -203,8 +204,8 @@ router.put(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Validation error"
@@ -220,8 +221,8 @@ router.put(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Unauthorized"
@@ -233,8 +234,8 @@ router.put(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "User not found"
@@ -246,8 +247,8 @@ router.put(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Internal server error"
@@ -256,6 +257,70 @@ router.patch(
   "/status",
   validateInputMiddleware(statusSchema),
   authController.updateStatus
+);
+
+/**
+ * @swagger
+ * /auth/logout:
+ *   post:
+ *     summary: Log out and clear auth cookie
+ *     tags: [Auth]
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: Logged out successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: string
+ *                   example: "success"
+ *                 message:
+ *                   type: string
+ *                   example: "Logged out successfully"
+ */
+router.post("/logout", authController.logout);
+
+/**
+ * @swagger
+ * /auth/{citizenIdentification}:
+ *   get:
+ *     summary: Find user by citizen identification
+ *     tags: [Auth]
+ *     security:
+ *       - cookieAuth: []
+ *     parameters:
+ *       - name: citizenIdentification
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: User found successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: string
+ *                   example: "success"
+ *                 message:
+ *                   type: string
+ *                   example: "User found successfully"
+ *                 data:
+ *                   $ref: '#/components/schemas/User'
+ *       400:
+ *         description: Bad request - Invalid input data
+ */
+router.get(
+  "/:citizenIdentificationId",
+  validateParameter("citizenIdentificationId", "params"),
+  authController.findByCitizenIdentification
 );
 
 export default router;

@@ -19,7 +19,7 @@ router.use(authMiddleware);
  *     summary: Add vital sign
  *     tags: [Vital Sign - Doctor]
  *     security:
- *       - bearerAuth: []
+ *       - cookieAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -35,8 +35,8 @@ router.use(authMiddleware);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: true
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Vital sign created successfully"
@@ -50,8 +50,8 @@ router.use(authMiddleware);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Validation error"
@@ -67,8 +67,8 @@ router.use(authMiddleware);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Unauthorized"
@@ -80,8 +80,8 @@ router.use(authMiddleware);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Insufficient permissions"
@@ -93,8 +93,8 @@ router.use(authMiddleware);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Internal server error"
@@ -114,7 +114,7 @@ router.post(
  *     summary: Update vital sign
  *     tags: [Vital Sign - Doctor]
  *     security:
- *       - bearerAuth: []
+ *       - cookieAuth: []
  *     parameters:
  *       - name: id
  *         in: path
@@ -136,8 +136,8 @@ router.post(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: true
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Vital sign updated successfully"
@@ -151,8 +151,8 @@ router.post(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Validation error"
@@ -168,8 +168,8 @@ router.post(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Unauthorized"
@@ -181,8 +181,8 @@ router.post(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Insufficient permissions"
@@ -194,8 +194,8 @@ router.post(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Vital sign not found"
@@ -207,8 +207,8 @@ router.post(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Internal server error"
@@ -228,7 +228,7 @@ router.put(
  *     summary: Delete vital sign
  *     tags: [Vital Sign - Doctor]
  *     security:
- *       - bearerAuth: []
+ *       - cookieAuth: []
  *     parameters:
  *       - name: id
  *         in: path
@@ -244,8 +244,8 @@ router.put(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: true
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Vital sign deleted successfully"
@@ -257,8 +257,8 @@ router.put(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Unauthorized"
@@ -270,8 +270,8 @@ router.put(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Insufficient permissions"
@@ -283,8 +283,8 @@ router.put(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Vital sign not found"
@@ -296,8 +296,8 @@ router.put(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Internal server error"
@@ -316,7 +316,7 @@ router.delete(
  *     summary: Get vital sign by nft token
  *     tags: [Doctor - Patient]
  *     security:
- *       - bearerAuth: []
+ *       - cookieAuth: []
  *     parameters:
  *       - name: nftToken
  *         in: path
@@ -332,8 +332,8 @@ router.delete(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: true
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Vital signs retrieved successfully"
@@ -349,8 +349,8 @@ router.delete(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Invalid parameters"
@@ -362,8 +362,8 @@ router.delete(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Unauthorized"
@@ -375,8 +375,8 @@ router.delete(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "No vital signs found"
@@ -388,8 +388,8 @@ router.delete(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Internal server error"

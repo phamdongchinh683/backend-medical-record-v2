@@ -16,7 +16,7 @@ router.use(authMiddleware);
  *     summary: Create access log
  *     tags: [Doctor - Patient]
  *     security:
- *       - bearerAuth: []
+ *       - cookieAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -32,8 +32,8 @@ router.use(authMiddleware);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: true
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Access log created successfully"
@@ -47,8 +47,8 @@ router.use(authMiddleware);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Validation error"
@@ -64,8 +64,8 @@ router.use(authMiddleware);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Unauthorized"
@@ -77,8 +77,8 @@ router.use(authMiddleware);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Internal server error"
@@ -96,7 +96,7 @@ router.post(
  *     summary: find access log by nft
  *     tags: [Doctor - Patient]
  *     security:
- *       - bearerAuth: []
+ *       - cookieAuth: []
  *     parameters:
  *       - name: nftToken
  *         in: path
@@ -131,8 +131,8 @@ router.post(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: true
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Access logs retrieved successfully"
@@ -163,8 +163,8 @@ router.post(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Invalid parameters"
@@ -176,8 +176,8 @@ router.post(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Unauthorized"
@@ -189,8 +189,8 @@ router.post(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "No access logs found"
@@ -202,8 +202,8 @@ router.post(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Internal server error"
@@ -213,6 +213,126 @@ router.get(
   validateParameter("nftToken", "params"),
   validatePaginationQuery,
   accessLogController.getAccessLogByNftToken
+);
+
+/**
+ * @swagger
+ * /access-log/:
+ *   get:
+ *     summary: find access log by wallet
+ *     tags: [Doctor - Patient]
+ *     security:
+ *       - cookieAuth: []
+ *     parameters:
+ *       - name: page
+ *         in: query
+ *         required: true
+ *         schema:
+ *           type: number
+ *           default: 1
+ *           minimum: 1
+ *         example: 1
+ *         description: Page number (starts from 1)
+ *       - name: limit
+ *         in: query
+ *         required: true
+ *         schema:
+ *           type: number
+ *           default: 10
+ *           minimum: 1
+ *           maximum: 100
+ *         example: 10
+ *         description: Number of items per page (max 100)
+ *     responses:
+ *       200:
+ *         description: Access logs retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: string
+ *                   example: "success"
+ *                 message:
+ *                   type: string
+ *                   example: "Access logs retrieved successfully"
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/AccessLog'
+ *                 pagination:
+ *                   type: object
+ *                   properties:
+ *                     page:
+ *                       type: number
+ *                       example: 1
+ *                     limit:
+ *                       type: number
+ *                       example: 10
+ *                     total:
+ *                       type: number
+ *                       example: 25
+ *                     totalPages:
+ *                       type: number
+ *                       example: 3
+ *       400:
+ *         description: Bad request - Invalid parameters
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: string
+ *                   example: "success"
+ *                 message:
+ *                   type: string
+ *                   example: "Invalid parameters"
+ *       401:
+ *         description: Unauthorized - Invalid or missing token
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: string
+ *                   example: "success"
+ *                 message:
+ *                   type: string
+ *                   example: "Unauthorized"
+ *       404:
+ *         description: Not found - No access logs found for the given NFT token
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: string
+ *                   example: "success"
+ *                 message:
+ *                   type: string
+ *                   example: "No access logs found"
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: string
+ *                   example: "success"
+ *                 message:
+ *                   type: string
+ *                   example: "Internal server error"
+ */
+router.get(
+  "/",
+  validatePaginationQuery,
+  accessLogController.getAccessLogByWallet
 );
 
 export default router;

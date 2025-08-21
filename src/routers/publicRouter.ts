@@ -18,6 +18,7 @@ const router = Router();
  *       - name: address
  *         in: path
  *         required: true
+ *         description: The address of the user
  *         schema:
  *           type: string
  *     responses:
@@ -29,8 +30,8 @@ const router = Router();
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: true
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Message generated successfully"
@@ -51,8 +52,8 @@ const router = Router();
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Invalid address format"
@@ -64,8 +65,8 @@ const router = Router();
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Internal server error"
@@ -98,8 +99,8 @@ router.get(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: true
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Message verified successfully"
@@ -119,8 +120,8 @@ router.get(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Invalid signature"
@@ -132,8 +133,8 @@ router.get(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Verification failed"
@@ -145,8 +146,8 @@ router.get(
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Internal server error"
@@ -174,8 +175,8 @@ router.post("/verify", signatureMiddleware, authController.verifyMessage);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: true
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "User registered successfully"
@@ -189,8 +190,8 @@ router.post("/verify", signatureMiddleware, authController.verifyMessage);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Validation error"
@@ -206,8 +207,8 @@ router.post("/verify", signatureMiddleware, authController.verifyMessage);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "User already exists"
@@ -219,8 +220,8 @@ router.post("/verify", signatureMiddleware, authController.verifyMessage);
  *               type: object
  *               properties:
  *                 success:
- *                   type: boolean
- *                   example: false
+ *                   type: string
+ *                   example: "success"
  *                 message:
  *                   type: string
  *                   example: "Internal server error"

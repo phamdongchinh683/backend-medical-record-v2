@@ -26,7 +26,7 @@ class AppointmentController {
   });
 
   deleteAppointment = asyncHandler(async (req: Request, res: Response) => {
-    await appointmentService.deleteAccessLog(req.params.id, res);
+    await appointmentService.deleteAppointment(req.params.id, res);
   });
 }
 

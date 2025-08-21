@@ -27,6 +27,19 @@ class AuthController {
   updateStatus = asyncHandler(async (req: IUserRequest, res: Response) => {
     await userService.updateActiveStatus(res, req.body, req.user.address);
   });
+
+  logout = asyncHandler(async (req: Request, res: Response) => {
+    await AuthService.deleteToken(res);
+  });
+
+  findByCitizenIdentification = asyncHandler(
+    async (req: Request, res: Response) => {
+      await AuthService.findByCitizenIdentification(
+        res,
+        req.params.citizenIdentificationId
+      );
+    }
+  );
 }
 
 export default new AuthController();

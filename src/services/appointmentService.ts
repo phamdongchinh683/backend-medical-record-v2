@@ -76,7 +76,7 @@ class AppointmentService {
     }
   }
 
-  async deleteAccessLog(id: string, res: Response) {
+  async deleteAppointment(id: string, res: Response) {
     try {
       const result = await this.appointmentRepository.delete(id);
       if (result.affected === 0) {

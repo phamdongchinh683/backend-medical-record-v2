@@ -44,4 +44,37 @@ export class AccessLogRepository extends BaseRepository<AccessLog> {
       totalItems: total,
     };
   }
+
+  async findAccessLogByWallet(
+    wallet: string,
+    page: number,
+    limit: number
+  ): Promise<IPaginationData> {
+    let [result, total] = await this.repo.findAndCount({
+      skip: (page - 1) * limit,
+      take: limit,
+      select: {
+        id: true,
+        nft_token: true,
+        action: true,
+        create_at: true,
+        user: {
+          id: true,
+          full_name: true,
+        },
+      },
+      where: {
+        user: {
+          wallet_user: wallet,
+        },
+      },
+    });
+    return {
+      data: result,
+      total: result.length,
+      page,
+      limit,
+      totalItems: total,
+    };
+  }
 }

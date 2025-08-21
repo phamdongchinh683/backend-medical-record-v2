@@ -1,5 +1,6 @@
 import { UpdateResult } from "typeorm";
 import { User } from "../entities/User";
+import { ICitizenIdentificationInfo } from "../types/ICitizenIdentificationInfo";
 import { IUserProfile } from "../types/IUserProfile";
 import { IUserUpdate } from "../types/IUserUpdate";
 import { Gender, Role, UserStatus } from "../utils/enum";
@@ -57,6 +58,15 @@ export class UserRepository extends BaseRepository<User> {
       { wallet_user: wallet },
       { status: data.status }
     );
+  }
+
+  async findByCitizenIdentification(
+    citizenIdentification: string
+  ): Promise<ICitizenIdentificationInfo | null> {
+    return await this.repo.findOne({
+      where: { citizen_identification: citizenIdentification },
+      select: ["full_name", "wallet_user", "citizen_identification"],
+    });
   }
 }
 0;
