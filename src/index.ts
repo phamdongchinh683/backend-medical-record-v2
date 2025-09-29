@@ -3,6 +3,7 @@ import cors from "cors";
 import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
+import limiter from "./config/configLimiter";
 import { corsOptions } from "./config/corsOption";
 import { initializeDatabase } from "./config/database";
 import router from "./routers";
@@ -10,6 +11,7 @@ import { nodeEnv, port } from "./utils/constants";
 
 const app = express();
 app.use(cors(corsOptions));
+app.use(limiter);
 app.use(express.json());
 app.use(morgan("combined"));
 app.use(helmet());

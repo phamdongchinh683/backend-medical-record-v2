@@ -27,16 +27,16 @@ function signatureMiddleware(
   }
 
   try {
-    // const recoveredAddress = ethers.verifyMessage(message, signature);
+    const recoveredAddress = ethers.verifyMessage(message, signature);
 
-    // if (recoveredAddress.toLowerCase() !== address.toLowerCase()) {
-    //   responseStatus(res, "error", 400, "Invalid signature");
-    //   return;
-    // }
+    if (recoveredAddress.toLowerCase() !== address.toLowerCase()) {
+      responseStatus(res, "error", 400, "Invalid signature");
+      return;
+    }
     req.address = address;
     next();
   } catch (error) {
-    responseStatus(res, "error", 400, "Invalid signature length");
+    responseStatus(res, "error", 400, "Invalid signature");
     return;
   }
 }

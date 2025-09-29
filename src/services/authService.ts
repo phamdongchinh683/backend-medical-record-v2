@@ -53,8 +53,7 @@ class AuthService {
         res,
         "success",
         200,
-        "Token generated successfully",
-        token
+        "Success",
       );
     } catch (error) {
       responseStatus(res, "error", 500, error.message);
@@ -89,6 +88,8 @@ class AuthService {
       responseStatus(res, "error", 500, e.message);
     }
   }
+
+  
 }
 
 export default new AuthService();
