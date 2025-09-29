@@ -1,16 +1,20 @@
-# Dockerfile
-FROM node:20
+FROM node:20-alpine AS builder
 
-# Tạo thư mục app
-WORKDIR /usr/src/app
+WORKDIR /app
 
 COPY package*.json ./
+
 RUN npm install --production
 
 COPY . .
 
-# Expose port
+FROM node:20-alpine AS runner
+
+WORKDIR /app
+
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app ./
+
 EXPOSE 3000
 
-# Run app
-CMD ["npm", "start"]
+CMD ["node", "index.js"]

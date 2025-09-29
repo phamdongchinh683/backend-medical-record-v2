@@ -2,28 +2,30 @@ version: "3.8"
 
 services:
   app:
-    build: .
-    container_name: node_app
+    image: phamdongchinh683/my-app-medical-record-v2:latest
+    container_name: medical-record-app
     ports:
       - "3000:3000"
     env_file:
       - .env
     depends_on:
       - db
-    restart: always
+    networks:
+      - medical-net
 
   db:
     image: postgres:15
-    container_name: postgres_db
+    container_name: postgres-db
+    restart: always
     environment:
-      POSTGRES_USER: root
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123456
-      POSTGRES_DB: postgres
+      POSTGRES_DB: medicaldb
     ports:
       - "5432:5432"
-    volumes:
-      - db_data:/var/lib/postgresql/data
-    restart: always
+    networks:
+      - medical-net
 
-volumes:
-  db_data:
+networks:
+  medical-net:
+    driver: bridge
