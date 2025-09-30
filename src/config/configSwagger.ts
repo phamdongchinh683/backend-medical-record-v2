@@ -32,7 +32,10 @@ const options = {
       version: "1.0.0",
       description: "API documentation for the Medical Record backend",
     },
-    servers: [{ url: "http://localhost:3000/api/v1" }],
+    servers: [
+      { url: "http://64.227.60.42:3000/api/v1" },
+      { url: "http://localhost:3000/api/v1" },
+    ],
     tags: [
       {
         name: "Public",
