@@ -20,7 +20,6 @@
     "@types/joi": "^17.2.2",
     "@types/node": "^24.0.12",
     "ts-node": "^10.9.2",
-    "typeorm": "^0.3.25",
     "typescript": "^5.8.3"
   },
   "dependencies": {
@@ -31,6 +30,7 @@
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
+    "typeorm": "^0.3.25",
     "ethers": "^6.15.0",
     "express": "^5.1.0",
     "express-rate-limit": "^8.1.0",
