@@ -6,8 +6,9 @@ import { responseStatus } from "../utils/response";
 
 const router = Router();
 
-router.use(routers);
 router.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+router.use(routers);
 
 router.use((req: Request, res: Response) => {
   responseStatus(res, "error", 404, "URL not found");
