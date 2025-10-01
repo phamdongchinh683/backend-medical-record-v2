@@ -1,5 +1,6 @@
+import fs from "fs";
+import path from "path";
 import swaggerJSDoc from "swagger-jsdoc";
-import { nodeEnv } from "../utils/constants";
 import {
   accessLogSwaggerSchema,
   appointmentSwaggerSchema,
@@ -24,6 +25,12 @@ import {
   vitalSignSwaggerSchema,
   vitalSignUpdateSwaggerSchema,
 } from "../utils/swaggerSchema";
+
+const distRoutersDir = path.join(process.cwd(), "dist/routers");
+const srcRoutersDir = path.join(process.cwd(), "src/routers");
+const apisGlob = fs.existsSync(distRoutersDir)
+  ? [path.join(distRoutersDir, "*.js")]
+  : [path.join(srcRoutersDir, "*.ts")];
 
 const options = {
   definition: {
@@ -101,11 +108,9 @@ const options = {
       },
     },
   },
-  apis:
-    nodeEnv === "development"
-      ? ["./src/routers/*.ts"]
-      : ["./dist/routers/*.js"],
+  apis: apisGlob,
 };
 
 const swaggerSpec = swaggerJSDoc(options);
+
 export default swaggerSpec;
