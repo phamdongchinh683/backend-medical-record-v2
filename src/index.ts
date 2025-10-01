@@ -24,7 +24,7 @@ async function startServer() {
     await initializeDatabase();
     if (nodeEnv === "development") {
       app.listen(port, () => {
-        console.log("swagger url", `http://localhost:${port}/docs`);
+        console.log("swagger url", `http://localhost:${port}/api-docs`);
         console.log(
           `Server running at http://localhost:${port} in development mode`
         );

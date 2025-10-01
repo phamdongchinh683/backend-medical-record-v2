@@ -1,4 +1,5 @@
 import swaggerJSDoc from "swagger-jsdoc";
+import { nodeEnv } from "../utils/constants";
 import {
   accessLogSwaggerSchema,
   appointmentSwaggerSchema,
@@ -100,7 +101,10 @@ const options = {
       },
     },
   },
-  apis: ["./src/routers/*.ts"],
+  apis:
+    nodeEnv === "development"
+      ? ["./src/routers/*.ts"]
+      : ["./dist/routers/*.js"],
 };
 
 const swaggerSpec = swaggerJSDoc(options);
